@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppWrapper, GlobalStyle} from "../styles/styles";
+import {AppWrapper, GlobalStyle} from "../src/styles/styles";
 import styled from "styled-components";
 import Link from "next/link";
 
