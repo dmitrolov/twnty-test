@@ -15,7 +15,7 @@ const MainTitle = styled.div`
 const ApiNameSpan = styled.span`
   width: 100%;
   text-align: center;
-  font-size: 5rem;
+  font-size: 3rem;
   padding-bottom: 0.5rem;
 `
 
