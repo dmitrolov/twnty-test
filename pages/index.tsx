@@ -30,9 +30,9 @@ const Index = () => {
             <GlobalStyle/>
             <AppWrapper>
                 <MainTitle>
-                    <ApiNameSpan className="api-name"><a href="https://dummyjson.com">dummyJSON</a></ApiNameSpan>
+                    <ApiNameSpan><a href="https://openweathermap.org/api">OpenWeather</a></ApiNameSpan>
                     <Link href={"/summary"}>
-                        <CTAButton className="summary-page">Go to summary page</CTAButton>
+                        <CTAButton>Go to summary page</CTAButton>
                     </Link>
                 </MainTitle>
             </AppWrapper>
