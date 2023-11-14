@@ -20,6 +20,10 @@ const PostsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `
 const WeatherActionWrap = styled.div`
   display: flex;
@@ -29,13 +33,28 @@ const WeatherActionWrap = styled.div`
 `
 const WeatherActionItem = styled.div`
   display: flex;
-  width: 250px;
+  width: 150px;
   padding-left: 0.5rem;
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    margin-right: 0.5rem;
+  }
 `
 const TemperatureFilterInput = styled.input`
   width: 50px;
   margin-left: 0.5rem;
+`
+
+const Aside = styled.aside`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const WeatherListWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `
 
 const WeatherList = ({weatherForecastItems}: IWeatherListProps) => {
@@ -92,35 +111,39 @@ const WeatherList = ({weatherForecastItems}: IWeatherListProps) => {
 
     return (
         <PostsWrapper>
-            <WeatherActionWrap>
-                <h3>Sort</h3>
-                <WeatherActionItem onClick={sortByDate}><button>Sort by Date</button></WeatherActionItem>
-                <WeatherActionItem onClick={sortByTemperature}><button>Sort by Temperature</button></WeatherActionItem>
-                <WeatherActionItem onClick={sortByPressure}><button>Sort by Pressure</button></WeatherActionItem>
-            </WeatherActionWrap>
-            <WeatherActionWrap>
-                <h3>Filter</h3>
-                <WeatherActionItem>Filter by Temperature</WeatherActionItem>
-                <WeatherActionItem>
-                    <span>Min</span>
-                    <TemperatureFilterInput
-                        value={state.minTemperature}
-                        onChange={onMinTempFilterValueChange}
-                        type={'number'}
-                    />
-                </WeatherActionItem>
-                <WeatherActionItem>
-                    <span>Max</span>
-                    <TemperatureFilterInput
-                        value={state.maxTemperature}
-                        onChange={onMaxTempFilterValueChange}
-                        type={'number'}
-                    />
-                </WeatherActionItem>
-            </WeatherActionWrap>
-            {state.modifiedForecastItems?.map((weatherForecastItem) => {
-                return <WeatherDay key={weatherForecastItem.dt} weatherForecastItem={weatherForecastItem}/>
-            })}
+            <Aside>
+                <WeatherActionWrap>
+                    <h3>Sort</h3>
+                    <WeatherActionItem onClick={sortByDate}><button>Sort by Date</button></WeatherActionItem>
+                    <WeatherActionItem onClick={sortByTemperature}><button>Sort by Temperature</button></WeatherActionItem>
+                    <WeatherActionItem onClick={sortByPressure}><button>Sort by Pressure</button></WeatherActionItem>
+                </WeatherActionWrap>
+                <WeatherActionWrap>
+                    <h3>Filter</h3>
+                    <WeatherActionItem>Filter by Temperature</WeatherActionItem>
+                    <WeatherActionItem>
+                        <span>Min</span>
+                        <TemperatureFilterInput
+                            value={state.minTemperature}
+                            onChange={onMinTempFilterValueChange}
+                            type={'number'}
+                        />
+                    </WeatherActionItem>
+                    <WeatherActionItem>
+                        <span>Max</span>
+                        <TemperatureFilterInput
+                            value={state.maxTemperature}
+                            onChange={onMaxTempFilterValueChange}
+                            type={'number'}
+                        />
+                    </WeatherActionItem>
+                </WeatherActionWrap>
+            </Aside>
+            <WeatherListWrap>
+                {state.modifiedForecastItems?.map((weatherForecastItem) => {
+                    return <WeatherDay key={weatherForecastItem.dt} weatherForecastItem={weatherForecastItem}/>
+                })}
+            </WeatherListWrap>
         </PostsWrapper>
     );
 };

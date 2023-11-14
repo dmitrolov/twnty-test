@@ -10,7 +10,7 @@ const WeatherDayWrapper = styled.div`
 
 const WeatherDayItem = styled.div`
   display: flex;
-  width: 250px;
+  width: 190px;
 `
 
 interface IWeatherDay {

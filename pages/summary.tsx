@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {AppWrapper, FlexContainer, GlobalStyle} from "../src/styles/styles";
+import {AppWrapper, GlobalStyle} from "../src/styles/styles";
 import {get5DayForecast, IForecastResponse} from "../src/api/api";
 import WeatherList from "../src/components/Weather/WeatherList";
 import styled from "styled-components";
@@ -10,11 +10,41 @@ interface IState {
     searchText: string,
 }
 
+export const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem;
+  }
+`
+
+export const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+`
+
 const TextInput = styled.input`
   width: 200px;
   height: 40px;
   padding: 0.5rem;
   margin: 0.5rem;
+
+  @media (min-width: 768px) {
+    padding: 0;
+    margin: 0;
+  }
 `
 
 const StyledButton = styled.button`
@@ -22,6 +52,11 @@ const StyledButton = styled.button`
   height: 40px;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
+
+  @media (min-width: 768px) {
+    padding: 0;
+    margin: 0;
+  }
 `
 
 const APIErrorMesssage = styled.div`
@@ -31,6 +66,10 @@ const APIErrorMesssage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `
 
 const Summary = () => {
@@ -59,21 +98,26 @@ const Summary = () => {
             <AppWrapper>
                 <FlexContainer>
                     <h1>Summary page</h1>
-                    <FlexContainer>
+                    <SearchContainer>
                         <TextInput
                             type="text"
                             placeholder={'Search...'}
                             onChange={(e) => setState({...state, ...{searchText: e.target.value}})}
                         />
                         <StyledButton onClick={getForecast}>Show forecast</StyledButton>
-                        {state.weatherDays.cod == 400 &&
-                            <APIErrorMesssage><h3>Location not found</h3></APIErrorMesssage>
-                        }
-                    </FlexContainer>
+                    </SearchContainer>
                 </FlexContainer>
-                {state.weatherDays.cod == 200 &&
-                    <WeatherList weatherForecastItems={state.weatherDays.list}></WeatherList>
-                }
+                <FlexContainer>
+                    {!state.weatherDays.cod &&
+                        <h3>Type some city or country into the search field (e.g. "Ukraine")</h3>
+                    }
+                    {state.weatherDays.cod == 400 &&
+                        <APIErrorMesssage><h3>Location not found</h3></APIErrorMesssage>
+                    }
+                    {state.weatherDays.cod == 200 &&
+                        <WeatherList weatherForecastItems={state.weatherDays.list}></WeatherList>
+                    }
+                </FlexContainer>
             </AppWrapper>
         </>
     );
