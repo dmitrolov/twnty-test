@@ -1,16 +1,14 @@
 const api = {
-    key: '4201e49a9242c900993b52966ad08c0e',
+    key: process.env.apiKey,
     base: 'https://api.openweathermap.org/data/2.5/'
 }
-
-export const getCurrentWeather = async (searchText: string): Promise<any> => {
-    const res = await fetch(`${api.base}weather?q=${searchText}&units=metric&APPID=${api.key}`);
-    return await res.json();
-}
+type responseCode = 200 | 400
 
 export interface IForecastResponse {
     city: ICity;
     list: IWeatherForecastItem[];
+    cod?: responseCode;
+    message?: string;
 }
 
 interface ICity {
@@ -38,6 +36,10 @@ interface IWeather {
 }
 
 export const get5DayForecast = async (searchText: string): Promise<IForecastResponse> => {
-    const res = await fetch(`${api.base}forecast?q=${searchText}&units=metric&APPID=${api.key}`);
-    return await res.json();
+    try {
+        const res = await fetch(`${api.base}forecast?q=${searchText}&units=metric&APPID=${api.key}`);
+        return await res.json();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 }

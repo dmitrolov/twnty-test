@@ -19,7 +19,6 @@ interface IWeatherDay {
 
 export const WeatherDay = ({weatherForecastItem}: IWeatherDay) => {
     return (
-
         <WeatherDayWrapper>
             <WeatherDayItem>Date: {weatherForecastItem.dt_txt}</WeatherDayItem>
             <WeatherDayItem>Temperature: {weatherForecastItem.main.temp}°С</WeatherDayItem>

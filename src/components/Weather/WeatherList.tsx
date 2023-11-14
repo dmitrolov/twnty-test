@@ -47,34 +47,36 @@ const WeatherList = ({weatherForecastItems}: IWeatherListProps) => {
     })
 
     useEffect(() => {
-        const temperatures = weatherForecastItems.map((item => item.main.temp));
-        const minTemp = temperatures.length ? Math.min(...temperatures) : 0;
-        const maxTemp = temperatures.length ? Math.max(...temperatures) : 0;
-
-        setState({
-            ...state,
-            modifiedForecastItems: weatherForecastItems,
-            minTemperature: minTemp,
-            maxTemperature: maxTemp,
+        const filteredData = weatherForecastItems.filter(item => {
+            return (item.main.temp >= state.minTemperature) && (item.main.temp <= state.maxTemperature)
         })
-    }, [weatherForecastItems])
 
-    useEffect(() => {
-        const sortedItems = sortWeatherItems(state.modifiedForecastItems)
-        setState({...state, modifiedForecastItems: sortedItems})
-    }, [state.sortBy])
-
-    console.log('WeatherList state', state)
-
-
-    const sortWeatherItems = (weatherItems: IWeatherForecastItem[]) => {
         const sortMap = {
             "DATE": (data: IWeatherForecastItem[]) => data.sort((a, b) => (a.dt_txt > b.dt_txt) ? 1 : ((b.dt_txt > a.dt_txt) ? -1 : 0)),
             "TEMP": (data: IWeatherForecastItem[]) => data.sort((a, b) => a.main.temp - b.main.temp),
             "PRES": (data: IWeatherForecastItem[]) => data.sort((a, b) => a.main.pressure - b.main.pressure),
         }
-        return sortMap[state.sortBy](weatherItems)
-    }
+        const displayItems = sortMap[state.sortBy](filteredData)
+
+        setState({
+            ...state,
+            modifiedForecastItems: [...displayItems],
+        })
+    }, [weatherForecastItems, state.minTemperature, state.maxTemperature, state.sortBy])
+
+    useEffect(() => {
+        const temperatures = weatherForecastItems.map((item => item.main.temp));
+        const minTemp = temperatures.length && Math.min(...temperatures);
+        const maxTemp = temperatures.length && Math.max(...temperatures);
+
+        setState({
+            ...state,
+            minTemperature: minTemp,
+            maxTemperature: maxTemp,
+        })
+
+    }, [weatherForecastItems]);
+
     const sortByDate = () => setState({...state, sortBy: "DATE"});
     const sortByTemperature = () => setState({...state, sortBy: "TEMP"});
     const sortByPressure = () => setState({...state, sortBy: "PRES"});
@@ -82,23 +84,11 @@ const WeatherList = ({weatherForecastItems}: IWeatherListProps) => {
     const onMinTempFilterValueChange = (e) => {
         const {value} = e.target;
         setState({...state, minTemperature: value})
-
     }
     const onMaxTempFilterValueChange = (e) => {
         const {value} = e.target;
         setState({...state, maxTemperature: value})
     }
-    const onFilterButtonClick = () => {
-        const filteredData = weatherForecastItems.filter(item => {
-            return (item.main.temp >= state.minTemperature) && (item.main.temp <= state.maxTemperature)
-        })
-        const sortedData = sortWeatherItems(filteredData)
-        setState({
-            ...state,
-            modifiedForecastItems: sortedData,
-        })
-    }
-
 
     return (
         <PostsWrapper>
@@ -116,20 +106,20 @@ const WeatherList = ({weatherForecastItems}: IWeatherListProps) => {
                     <TemperatureFilterInput
                         value={state.minTemperature}
                         onChange={onMinTempFilterValueChange}
+                        type={'number'}
                     />
-                    <button onClick={onFilterButtonClick}>Filter</button>
                 </WeatherActionItem>
                 <WeatherActionItem>
                     <span>Max</span>
                     <TemperatureFilterInput
                         value={state.maxTemperature}
                         onChange={onMaxTempFilterValueChange}
+                        type={'number'}
                     />
-                    <button onClick={onFilterButtonClick}>Filter</button>
                 </WeatherActionItem>
             </WeatherActionWrap>
             {state.modifiedForecastItems?.map((weatherForecastItem) => {
-                return <WeatherDay weatherForecastItem={weatherForecastItem}/>
+                return <WeatherDay key={weatherForecastItem.dt} weatherForecastItem={weatherForecastItem}/>
             })}
         </PostsWrapper>
     );
