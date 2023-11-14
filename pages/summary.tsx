@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppWrapper, GlobalStyle} from "../src/styles/styles";
-import {get5DayForecast, getCurrentWeather, IForecastResponse, IWeatherForecastItem} from "../src/api/api";
+import {get5DayForecast, getCurrentWeather, IForecastResponse} from "../src/api/api";
 import WeatherList from "../src/components/Weather/WeatherList";
 
 interface IState {
@@ -25,7 +25,7 @@ const Summary = () => {
     })
 
     const getForecast = () => get5DayForecast(state.searchText).then((data) => {
-        console.log(data)
+        console.log('getForecast', data)
         setState({...state, ...{weatherDays: data}})
     })
 
@@ -33,11 +33,7 @@ const Summary = () => {
         // getWeather();
     }, [])
 
-    const setWeatherItems = (weatherItems: IWeatherForecastItem[]) => {
-        setState({...state, ...{weatherDays: {...state.weatherDays, list: weatherItems}}})
-    }
-
-    console.log(state)
+    console.log('SUM state', state)
     return (
         <>
             <GlobalStyle/>
@@ -50,7 +46,7 @@ const Summary = () => {
                 />
                 <button onClick={getWeather}>Show current weather</button>
                 <button onClick={getForecast}>Show forecast</button>
-                <WeatherList weatherForecastItems={state?.weatherDays?.list} setWeatherItems={setWeatherItems}></WeatherList>
+                <WeatherList weatherForecastItems={state.weatherDays.list}></WeatherList>
             </AppWrapper>
         </>
     );

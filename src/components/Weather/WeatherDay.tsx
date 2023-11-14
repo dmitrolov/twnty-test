@@ -4,6 +4,7 @@ import {IWeatherForecastItem} from "../../api/api";
 
 const WeatherDayWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 0.5rem;
 `
 
@@ -17,8 +18,8 @@ interface IWeatherDay {
 }
 
 export const WeatherDay = ({weatherForecastItem}: IWeatherDay) => {
-    console.log(weatherForecastItem)
     return (
+
         <WeatherDayWrapper>
             <WeatherDayItem>Date: {weatherForecastItem.dt_txt}</WeatherDayItem>
             <WeatherDayItem>Temperature: {weatherForecastItem.main.temp}°С</WeatherDayItem>
