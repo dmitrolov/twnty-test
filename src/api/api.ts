@@ -20,6 +20,7 @@ export interface IWeatherForecastItem {
     dt: number,
     dt_txt: string,
     weather: IWeather[],
+    wind: IWind,
 }
 
 interface ITemperature {
@@ -32,6 +33,12 @@ interface ITemperature {
 
 interface IWeather {
     description: string,
+}
+
+interface IWind {
+    speed: number
+    deg: number,
+    gust: number,
 }
 
 export const get5DayForecast = async (searchText: string): Promise<IForecastResponse> => {

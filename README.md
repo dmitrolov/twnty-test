@@ -27,3 +27,4 @@ Feedback:
 14. Added linter
 15. Divided the project into more files
 16. Added SSR
+17. Added weather item detailed info 
