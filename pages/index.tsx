@@ -25,19 +25,17 @@ const CTAButton = styled.button`
 `
 
 const Index = () => {
-    return (
-        <>
+    return (<>
             <GlobalStyle/>
             <AppWrapper>
                 <MainTitle>
                     <ApiNameSpan><a href="https://openweathermap.org/api">OpenWeather</a></ApiNameSpan>
-                    <Link href={"/summary"}>
-                        <CTAButton>Go to summary page</CTAButton>
+                    <Link href={"/weather"}>
+                        <CTAButton>Go to weather page</CTAButton>
                     </Link>
                 </MainTitle>
             </AppWrapper>
-        </>
-    );
+        </>);
 };
 
 export default Index;

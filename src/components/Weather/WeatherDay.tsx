@@ -1,28 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import {IWeatherForecastItem} from "../../api/api";
-
-const WeatherDayWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
-`
-
-const WeatherDayItem = styled.div`
-  display: flex;
-  width: 190px;
-`
+import {WeatherDayItem, WeatherDayWrapper} from "./WeatherStyles";
+import Link from "next/link";
 
 interface IWeatherDay {
     weatherForecastItem: IWeatherForecastItem
 }
 
 export const WeatherDay = ({weatherForecastItem}: IWeatherDay) => {
-    return (
-        <WeatherDayWrapper>
-            <WeatherDayItem>Date: {weatherForecastItem.dt_txt}</WeatherDayItem>
-            <WeatherDayItem>Temperature: {weatherForecastItem.main.temp}°С</WeatherDayItem>
-            <WeatherDayItem>Pressure: {weatherForecastItem.main.pressure}</WeatherDayItem>
-        </WeatherDayWrapper>
-    );
+    return (<WeatherDayWrapper>
+        <WeatherDayItem>Date: {weatherForecastItem.dt_txt}</WeatherDayItem>
+        <WeatherDayItem>Temperature: {weatherForecastItem.main.temp}°С</WeatherDayItem>
+        <WeatherDayItem>Pressure: {weatherForecastItem.main.pressure}</WeatherDayItem>
+        <WeatherDayItem><Link href={`/weather/${weatherForecastItem.dt}`}>
+            <button>Details</button>
+        </Link></WeatherDayItem>
+    </WeatherDayWrapper>);
 }
