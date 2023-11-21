@@ -30,8 +30,8 @@ const Index = () => {
             <AppWrapper>
                 <MainTitle>
                     <ApiNameSpan><a href="https://openweathermap.org/api">OpenWeather</a></ApiNameSpan>
-                    <Link href={"/summary"}>
-                        <CTAButton>Go to summary page</CTAButton>
+                    <Link href={"/weather"}>
+                        <CTAButton>Go to weather page</CTAButton>
                     </Link>
                 </MainTitle>
             </AppWrapper>
