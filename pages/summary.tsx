@@ -3,6 +3,7 @@ import {AppWrapper, GlobalStyle} from "../src/styles/styles";
 import {get5DayForecast, IForecastResponse} from "../src/api/api";
 import WeatherList from "../src/components/Weather/WeatherList";
 import styled from "styled-components";
+import Header from "../src/components/Header/Header";
 
 interface IState {
     weatherDays: IForecastResponse,
@@ -34,30 +35,6 @@ export const SearchContainer = styled.div`
   }
 `
 
-const TextInput = styled.input`
-  width: 200px;
-  height: 40px;
-  padding: 0.5rem;
-  margin: 0.5rem;
-
-  @media (min-width: 768px) {
-    padding: 0;
-    margin: 0;
-  }
-`
-
-const StyledButton = styled.button`
-  width: 200px;
-  height: 40px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-
-  @media (min-width: 768px) {
-    padding: 0;
-    margin: 0;
-  }
-`
-
 const APIErrorMessage = styled.div`
   width: 200px;
   height: 40px;
@@ -82,19 +59,13 @@ const Summary = () => {
         setState({...state, ...{weatherDays: data}})
     })
 
+    const onSearchType = (e) => setState({...state, ...{searchText: e.target.value}})
+
     return (<>
             <GlobalStyle/>
             <AppWrapper>
                 <FlexContainer>
-                    <h1>Summary page</h1>
-                    <SearchContainer>
-                        <TextInput
-                            type="text"
-                            placeholder={'Search...'}
-                            onChange={(e) => setState({...state, ...{searchText: e.target.value}})}
-                        />
-                        <StyledButton onClick={getForecast}>Show forecast</StyledButton>
-                    </SearchContainer>
+                    <Header getForecast={getForecast} onSearchType={onSearchType}></Header>
                 </FlexContainer>
                 <FlexContainer>
                     {!state.weatherDays.cod &&

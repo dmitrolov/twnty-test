@@ -1,17 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import {IWeatherForecastItem} from "../../api/api";
-
-const WeatherDayWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
-`
-
-const WeatherDayItem = styled.div`
-  display: flex;
-  width: 190px;
-`
+import {WeatherDayItem, WeatherDayWrapper} from "./WeatherStyles";
 
 interface IWeatherDay {
     weatherForecastItem: IWeatherForecastItem

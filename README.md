@@ -15,11 +15,14 @@ Feedback:
 2. Started project implementation. Added all libs.
 3. Forgot to add .idea to .gitignore. Removed that folder.
 4. Implemented "home page". No issues.
-5. Decide to choose first "public API" from google search (DummyJSON). 
-6. Add "Summary page" and API for it. No issues.
+5. Decided to choose first "public API" from google search (DummyJSON). 
+6. Added "Summary page" and API for it. No issues.
 7. I found that there are not enough functionality in chosen API for "real-time" data, so I started to look for another one. I decided to take weather API as it was first mentioned in technical task.
-8. Waste a bit of time to found appropriate weather API, as all free APIs are very limited. Rewrote to new API
-9. Add Sort and Filtration. Waste a bit of time to debug re-rendering styled components problem.
-10. Add errors handling. No issues.
-11. Add more styles and responsiveness. No issues.
+8. Wasted a bit of time to found appropriate weather API, as all free APIs are very limited. Rewrote to new API
+9. Added Sort and Filtration. Waste a bit of time to debug re-rendering styled components problem.
+10. Added errors handling. No issues.
+11. Added more styles and responsiveness. No issues.
 12. Wrote the instructions on how to run the app locally.
+13. Sent task on review, got feedback
+14. Added linter
+15. Divided the project into more files
