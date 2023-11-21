@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {AppWrapper, GlobalStyle} from "../src/styles/styles";
 import {get5DayForecast, IForecastResponse} from "../src/api/api";
 import WeatherList from "../src/components/Weather/WeatherList";
@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 interface IState {
     weatherDays: IForecastResponse,
-    weatherCurrent: any,
     searchText: string,
 }
 
@@ -14,7 +13,7 @@ export const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
@@ -27,7 +26,7 @@ export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
@@ -59,7 +58,7 @@ const StyledButton = styled.button`
   }
 `
 
-const APIErrorMesssage = styled.div`
+const APIErrorMessage = styled.div`
   width: 200px;
   height: 40px;
   background-color: lightcoral;
@@ -75,25 +74,15 @@ const APIErrorMesssage = styled.div`
 const Summary = () => {
     const [state, setState] = useState<IState>({
         weatherDays: {
-            city: undefined,
-            list: [],
-        },
-        weatherCurrent: {},
-        searchText: '',
+            city: undefined, list: [],
+        }, searchText: '',
     })
 
     const getForecast = () => get5DayForecast(state.searchText).then((data) => {
-        console.log('getForecast', data)
         setState({...state, ...{weatherDays: data}})
     })
 
-    useEffect(() => {
-        // getWeather();
-    }, [])
-
-    console.log('SUM state', state)
-    return (
-        <>
+    return (<>
             <GlobalStyle/>
             <AppWrapper>
                 <FlexContainer>
@@ -109,18 +98,13 @@ const Summary = () => {
                 </FlexContainer>
                 <FlexContainer>
                     {!state.weatherDays.cod &&
-                        <h3>Type some city or country into the search field (e.g. "Ukraine")</h3>
-                    }
-                    {state.weatherDays.cod == 400 &&
-                        <APIErrorMesssage><h3>Location not found</h3></APIErrorMesssage>
-                    }
+                        <h3>Type some city or country into the search field (e.g. {'Ukraine'})</h3>}
+                    {state.weatherDays.cod == 400 && <APIErrorMessage><h3>Location not found</h3></APIErrorMessage>}
                     {state.weatherDays.cod == 200 &&
-                        <WeatherList weatherForecastItems={state.weatherDays.list}></WeatherList>
-                    }
+                        <WeatherList weatherForecastItems={state.weatherDays.list}></WeatherList>}
                 </FlexContainer>
             </AppWrapper>
-        </>
-    );
+        </>);
 };
 
 export default Summary;

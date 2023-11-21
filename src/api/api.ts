@@ -1,6 +1,5 @@
 const api = {
-    key: process.env.apiKey,
-    base: 'https://api.openweathermap.org/data/2.5/'
+    key: process.env.apiKey, base: 'https://api.openweathermap.org/data/2.5/'
 }
 type responseCode = 200 | 400
 

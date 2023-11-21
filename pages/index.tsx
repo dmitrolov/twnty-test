@@ -25,8 +25,7 @@ const CTAButton = styled.button`
 `
 
 const Index = () => {
-    return (
-        <>
+    return (<>
             <GlobalStyle/>
             <AppWrapper>
                 <MainTitle>
@@ -36,8 +35,7 @@ const Index = () => {
                     </Link>
                 </MainTitle>
             </AppWrapper>
-        </>
-    );
+        </>);
 };
 
 export default Index;
